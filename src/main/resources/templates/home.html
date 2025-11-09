@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Maquinarias - Arriendo y Venta</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/home.css}">
+</head>
+<body>
+
+<div class="header">
+    <h1>Maquinarias</h1>
+    <div class="nav">
+        <a href="#">Inicio</a>
+        <a href="#">Arriendo</a>
+        <a href="#">Venta</a>
+        <a href="#">Contacto</a>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Buscar maquinaria...">
+        <button>Buscar</button>
+    </div>
+</div>
+
+<div class="maquina-card" th:each="maquina : ${maquinas}">
+            <img class="maquina-img"
+                 th:src="@{${maquina.imagen}}"
+                 th:alt="${maquina.nombre_maquina}"
+                 alt="Imagen de la máquina" />
+            
+            <div class="maquina-card-body">
+              <h3 th:text="${maquina.nombre_maquina}">Nombre de la Máquina</h3>
+              <p th:text="${maquina.descripcion}">Descripción de la máquina.</p>
+              
+              <div class="maquina-info">
+                  <span class="precio" 
+                        th:text_="'$' + ${#numbers.formatDecimal(maquina.precio_por_dia, 0, 'POINT', 0, 'POINT')} + ' /día'">
+                    $120.000 /día
+                  </span>
+                  <span class="ubicacion" 
+                        th:text_="'Ubicación: ' + ${maquina.ubicacion}">
+                    Ubicación: Región del Maule
+                  </span>
+              </div>
+            </div>
+        </div>
+
+    </div>
+
+<div class="footer">
+    <p>&copy; 2025 Maquinarias. Todos los derechos reservados.</p>
+</div>
+
+</body>
+</html>
