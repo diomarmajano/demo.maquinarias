@@ -15,16 +15,26 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/home").permitAll()
-                .requestMatchers("/**.css").permitAll()
+                .requestMatchers("/").permitAll()
+                .requestMatchers("contacto").permitAll()
+                .requestMatchers("registro").permitAll()
                 .requestMatchers("/login").permitAll()
+                .requestMatchers("/maquinarias").authenticated()
+                .requestMatchers("home").authenticated()
+                .requestMatchers("/**.css").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
-                .loginPage("/login")
-                .permitAll()
+                .loginPage("/login") 
+                .loginProcessingUrl("/login") 
+                .defaultSuccessUrl("/home", true)
+                .permitAll() 
             )
-            .logout((logout) -> logout.permitAll());
+            .logout((logout) -> logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .permitAll());
+        
         
         return http.build();
     }
