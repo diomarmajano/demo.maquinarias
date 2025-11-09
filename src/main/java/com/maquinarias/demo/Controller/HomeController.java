@@ -16,18 +16,34 @@ public class HomeController {
     @Autowired
     private MaquinasServiceImpl maquinasService;
 
-    @GetMapping("/home")
-    public String home( Model model){
-         List<Maquinas> listaMaquinas = maquinasService.getAllMaquinas();
-        model.addAttribute("maquinas", listaMaquinas);
-        return "home"; 
+           
+    @GetMapping("/")
+    public String root() {
+        return "index";
     }
-       
 
-      @GetMapping("/")
-    public String root(
-        @RequestParam(name="name", required = false, defaultValue = "Contratacion y arriendo de maquinarias") 
-        String name) {
+    @GetMapping("/home")
+    public String home() {
         return "home";
+    }
+
+
+    @GetMapping("/maquinarias")
+    public String home(Model model){
+        List<Maquinas> listaMaquinas = maquinasService.getAllMaquinas();
+        model.addAttribute("maquinas", listaMaquinas);
+        return "maquinarias"; 
+    }
+
+    @GetMapping("/registro")
+    public String registro(Model model){
+        List<Maquinas> listaMaquinas = maquinasService.getAllMaquinas();
+        model.addAttribute("maquinas", listaMaquinas);
+        return "registro"; 
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login"; 
     }
 }
