@@ -58,19 +58,23 @@ public class WebSecurityConfig {
                     .logoutSuccessUrl("/")
                     .permitAll())
 
-            .headers(headers -> headers
-                .contentSecurityPolicy(csp -> csp
-                    .policyDirectives(
+    .headers(headers -> headers
+        .contentSecurityPolicy(csp -> csp
+            .policyDirectives(
             "default-src 'self'; " +
-            "img-src 'self' https://www.deere.com data:; " +
-            "style-src 'self' 'unsafe-inline'; " +
             "script-src 'self'; " +
-            "font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; " +
+            "style-src 'self'; " +
+            "img-src 'self' https://www.deere.com; " +
+            "font-src 'self'; " +
             "connect-src 'self'; " +
-            "frame-ancestors 'none';"
+            "form-action 'self'; " +
+            "object-src 'none'; " +
+            "frame-ancestors 'none'; " +
+            "base-uri 'self'; " +
+            "frame-src 'none';"
+            )
         )
-        )
-            );
+    );
         return http.build();
     }
 }
