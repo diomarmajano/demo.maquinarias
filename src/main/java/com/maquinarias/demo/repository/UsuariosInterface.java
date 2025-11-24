@@ -11,5 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UsuariosInterface extends JpaRepository<Usuarios, Long>{
 
     Optional<Usuarios> findByCorreo(String correo);
+    boolean existsByCorreo(String correo);
 
 }

@@ -11,7 +11,7 @@ public class Usuarios extends RepresentationModel<Usuarios>{
     @Getter @Setter 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_usuario;
+    private int id_usuario;
 
     @Getter @Setter
     @NotNull
@@ -40,13 +40,13 @@ public class Usuarios extends RepresentationModel<Usuarios>{
 
     @Getter @Setter
     @NotNull
-    @Column(name = "id_tipos_usuario")
-    private int Tipos_usuarios;
+    @Column(name = "id_tipo_usuario")
+    private int id_tipo_usuario;
 
 
-    @ManyToOne
-    @JoinColumn(name = "id_tipos_usuario")
-    private Tipos_usuarios tipoUsuario;
+    // @ManyToOne
+    // @JoinColumn(name = "id_tipos_usuario")
+    // private Tipos_usuarios tipoUsuario;
 
    
 }
