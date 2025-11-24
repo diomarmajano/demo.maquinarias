@@ -1,7 +1,6 @@
 package com.maquinarias.demo.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.hateoas.RepresentationModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,6 +37,12 @@ public class Usuarios extends RepresentationModel<Usuarios>{
     @NotNull
     @Column(name = "clave")
     private String clave;
+
+    @Getter @Setter
+    @NotNull
+    @Column(name = "id_tipos_usuario")
+    private int Tipos_usuarios;
+
 
     @ManyToOne
     @JoinColumn(name = "id_tipos_usuario")
