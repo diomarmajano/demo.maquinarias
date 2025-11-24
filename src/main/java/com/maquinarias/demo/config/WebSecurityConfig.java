@@ -5,13 +5,19 @@ import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.maquinarias.demo.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -20,9 +26,23 @@ public class WebSecurityConfig {
     //cramos una constante para evitar la duplicidad del literal 
     private static final String LOGIN_URL = "/login";
 
+   @Bean
+    public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+    }
     @Bean
-    public org.springframework.security.crypto.password.PasswordEncoder passwordEncoder() {
-        return new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+    public AuthenticationManager authenticationManager(
+            HttpSecurity http,
+            PasswordEncoder encoder,
+            CustomUserDetailsService userDetailsService) throws Exception {
+
+        AuthenticationManagerBuilder auth =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+
+        auth.userDetailsService(userDetailsService)
+            .passwordEncoder(encoder);
+
+        return auth.build();
     }
 
     //Aca creamo el Bean para la configuracion de Cross-Domain
@@ -85,3 +105,4 @@ public class WebSecurityConfig {
         return http.build();
     }
 }
+
