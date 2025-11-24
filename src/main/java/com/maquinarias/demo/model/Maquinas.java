@@ -1,7 +1,6 @@
 package com.maquinarias.demo.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.hateoas.RepresentationModel;
 import lombok.Getter;
 import lombok.Setter;
